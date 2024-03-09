@@ -1,0 +1,116 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Contatos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff5f9; /* Rosa claro */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #ff69b4; /* Rosa */
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ff69b4; /* Rosa */
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus {
+            border-color: #ff69b4; /* Rosa */
+        }
+        button {
+            background-color: #ff69b4; /* Rosa */
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff4d94; /* Rosa mais escuro */
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #ffe6f2; /* Rosa claro */
+            border: 1px solid #ff69b4; /* Rosa */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        .contact-details {
+            margin-bottom: 10px;
+        }
+        .remove-button {
+            background-color: #c71585; /* Dark pink */
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .remove-button:hover {
+            background-color: #a3056e; /* Dark pink mais escuro */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Contatos</h1>
+        <form method="post" action="/add_contact">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="phone">Telefone:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Adicionar Contato</button>
+        </form>
+        <ul>
+            {% for index, contact in contacts_with_indices %}
+                <li>
+                    <div class="contact-details">
+                        <strong>Nome:</strong> {{ contact.name }}<br>
+                        <strong>Telefone:</strong> {{ contact.phone }}<br>
+                        <strong>E-mail:</strong> {{ contact.email }}<br>
+                    </div>
+                    <form method="get" action="/remove_contact/{{ index }}">
+                        <button class="remove-button" type="submit">Remover</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
